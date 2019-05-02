@@ -4,8 +4,15 @@ from behave import *
 
 @step('I get userlist from webpage')
 def get_users_from_webpage(context):
-    chromedriver = r'C:\Users\Andrey\PycharmProjects\TS_test_task\utils\chromedriver.exe'
-    browser = webdriver.Chrome(chromedriver)
+    driverpath = '/usr/local/bin/chromedriver'
+    chrome_options = webdriver.ChromeOptions()
+
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+
+    browser = webdriver.Chrome(executable_path=driverpath, chrome_options=chrome_options)
+
     browser.get('http://146.185.143.168')
 
     username = browser.find_element_by_id("username")
