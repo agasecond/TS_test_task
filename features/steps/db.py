@@ -12,7 +12,7 @@ def get_users_from_db(context):
          ssh_username="root",
          remote_bind_address=('localhost', 5432)) as server:
 
-        conn = psycopg2.connect(database="mantisbt", port=5432, user='mantisbt', password='mantisbt2019')
+        conn = psycopg2.connect(database="mantisbt", port=server.local_bind_port, user='mantisbt', password='mantisbt2019')
         conn.autocommit = True
         curs = conn.cursor()
         try:
