@@ -1,9 +1,15 @@
-FROM python:3.7-alpine3.8
+FROM joyzoursky/python-chromedriver:3.7-selenium
 
-# update apk repo
-RUN echo "http://dl-4.alpinelinux.org/alpine/v3.8/main" >> /etc/apk/repositories && \
-    echo "http://dl-4.alpinelinux.org/alpine/v3.8/community" >> /etc/apk/repositories
+# set display port to avoid crash
+ENV DISPLAY=:99
 
-# install chromedriver
-RUN apk update
-RUN apk add chromium chromium-chromedriver
+RUN git clone https://github.com/agassecond/TS_test_task.git
+RUN ["/bin/bash", "-c", "cd /TS_test_task"]
+RUN python -m venv /TS_test_task
+RUN ["/bin/bash", "-c", "source /TS_test_task/bin/activate"]
+WORKDIR /TS_test_task/
+RUN pip install -r requirements.txt
+ENV PATH /TS_test_task/:$PATH
+ENTRYPOINT ["behave"]
+#ENTRYPOINT ["bash"]
+CMD ["-h"]
