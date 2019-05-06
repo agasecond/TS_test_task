@@ -16,7 +16,7 @@ def get_users_from_db(context):
         conn.autocommit = True
         curs = conn.cursor()
         try:
-            curs.execute("Select username From mantis_user_table;")
+            curs.execute("Select username From mantis_user_table where enabled = TRUE ;")
 
 
         except:
